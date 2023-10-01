@@ -24,8 +24,9 @@ public class AIPerformance {
         // Strategies
         List<IStrategy> strategies = new ArrayList<>();
         strategies.add(new RandomStrategy());
-        //strategies.add(new EliminateStrategy());
-        //strategies.add(new FrequencyStrategy());
+        strategies.add(new EliminateStrategy());
+        strategies.add(new FrequencyStrategy());
+        strategies.add(new MyAI());
 
         Map<IStrategy, AIStatistics> stats = new HashMap<>();
         System.out.println("\nStrategies running...");
@@ -93,6 +94,7 @@ public class AIPerformance {
         int guessCount = 1;
         while (!feedback.allMatch()) {
             guess = strategy.makeGuess(feedback);
+
             feedback = answer.makeGuess(guess);
             guessCount++;
 

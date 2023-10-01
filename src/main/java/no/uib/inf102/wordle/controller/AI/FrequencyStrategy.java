@@ -1,9 +1,5 @@
 package no.uib.inf102.wordle.controller.AI;
 
-import java.util.ArrayList;
-
-import java.util.Map;
-
 import no.uib.inf102.wordle.model.word.WordleWord;
 import no.uib.inf102.wordle.model.word.WordleWordList;
 
@@ -22,12 +18,18 @@ public class FrequencyStrategy implements IStrategy {
 
     @Override
     public String makeGuess(WordleWord feedback) {
-        //TODO implement this
-        return "";
+        if (feedback != null) {
+            guesses.eliminateWords(feedback);
+            return guesses.findBestGuess();
+        }
+        else {
+            return guesses.findBestGuess();
+        }
     }
+
 
     @Override
     public void reset() {
         guesses = new WordleWordList();
     }
-}
+} 

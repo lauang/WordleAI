@@ -6,6 +6,7 @@ import no.uib.inf102.wordle.controller.WordleAIController;
 import no.uib.inf102.wordle.controller.WordleHumanController;
 import no.uib.inf102.wordle.model.WordleBoard;
 import no.uib.inf102.wordle.model.WordleModel;
+import no.uib.inf102.wordle.model.word.WordleWordList;
 import no.uib.inf102.wordle.view.WordleView;
 
 public class WordleMain {

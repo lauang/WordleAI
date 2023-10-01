@@ -75,21 +75,40 @@ public class WordleAnswer {
      * 
      * @param guess
      * @param answer
-     * @return
+     * @return WordleWord 
      */
-    public static WordleWord matchWord(String guess, String answer) {
+    public static WordleWord matchWord(String guess, String answer) { //O(k^2)
         int wordLength = answer.length();
         if (guess.length() != wordLength)
             throw new IllegalArgumentException("Guess and answer must have same number of letters but guess = " + guess
                     + " and answer = " + answer);
 
-        //TODO: fix this method
-        
         AnswerType[] feedback = new AnswerType[5];
-        for (int i=0; i<wordLength; i++) {
-            feedback[i] = AnswerType.WRONG;
+
+        //For each character in the guess, check if it is in the answer, 
+        for (int i=0; i<wordLength; i++) { //O(k^2)
+            if (guess.charAt(i) == answer.charAt(i)) {
+                feedback[i] = AnswerType.CORRECT;
+                answer = answer.substring(0,i) + " " + answer.substring(i+1); //O(k)
+            }
         }
 
+        //Check if the character is in the answer but in the wrong position
+        for (int j = 0; j < wordLength; j ++) { //O(k^2)
+            if (feedback[j] == AnswerType.CORRECT) //O(1)
+                continue;
+            if (answer.contains(guess.charAt(j) + "")) { //O(k)
+                feedback[j] = AnswerType.WRONG_POSITION;
+                int i = answer.indexOf(guess.charAt(j)); //O(k)
+                answer = answer.substring(0,i) + " " + answer.substring(i+1); //O(k)
+            }
+        }
+
+        for (int k = 0; k<feedback.length; k++){ //O(k)
+            if (feedback[k] == null){ //O(1)
+                feedback[k] = AnswerType.WRONG;
+            }
+        }
         return new WordleWord(guess,feedback);
     }
 }
